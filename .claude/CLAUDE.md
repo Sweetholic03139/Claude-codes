@@ -10,6 +10,7 @@ A suite of Claude Code skills for rigorous academic research, paper writing, pee
 | `academic-paper` v3.3.1 | 12-agent paper writing | full, plan, outline-only, revision, revision-coach, abstract-only, lit-review, format-convert, citation-check, disclosure, rebuttal-audit |
 | `academic-paper-reviewer` v1.11.1 | Multi-perspective paper review (5 reviewers + optional cross-model DA critique) | full, re-review, quick, methodology-focus, guided, calibration |
 | `academic-pipeline` v3.21.2 | Full pipeline orchestrator | (coordinates all above) |
+| `experiment-agent` v1.0 | Execute + monitor experiments (code experiments + human studies) | run, manage, validate, plan |
 
 ## v3.21.2 Key Additions (model currency + checkpoint provenance + CJK title-matching repairs)
 
@@ -337,6 +338,14 @@ Otherwise, classify the user's input:
 
 6. **rebuttal-audit vs revision-coach (input-shape gate)**: both touch reviewer comments, so route by INPUT SHAPE, not verbs. Route to `academic-paper rebuttal-audit` ONLY when the user supplies BOTH the reviewer comments AND an existing rebuttal/response draft to evaluate (it does advisory QA, generates nothing). If only reviewer comments are present (no draft yet), route to `revision-coach` (it generates a Response Letter Skeleton). If unclear which, clarify rather than guess. `rebuttal-audit` is standalone/advisory and never emits Schema 11 or marks anything verified.
 7. **real-committee correspondence vs peer review (#668)**: route to the `revision-coach` committee-correspondence variant only when the user explicitly identifies a real committee or institutional review office. Formal tone and words such as “required” do not establish authority. That branch loads `academic-paper/references/committee_correspondence_protocol.md`, preserves the source, and emits its separate concern tracker; it never emits reviewer priority/severity, Schema 11, a determination, or a resolution claim.
+
+## Experiment Agent Routing (experiment-agent v1.0)
+
+1. **run vs manage**: run = code experiments (scripts, training, analysis). manage = human studies (surveys, interviews, field work). If unclear, ask user.
+2. **validate**: Works on results from any source — this agent's outputs, external files, or ARS pipeline data. Does statistical interpretation + optional reproducibility re-run.
+3. **plan**: Socratic dialogue to design experiments before running them. If user brings ARS Stage 1 output, pre-populates from RQ Brief and Methodology Blueprint.
+4. **Pipeline position**: fits between ARS Stage 1 (RESEARCH) and Stage 2 (WRITE). Works independently; when used with ARS, outputs include Material Passport (Schema 9) and the user bridges manually — ARS requires zero modification.
+5. **Experiment-agent key rules**: all anomaly detections are ADVISORY (user decides); only execute user-specified commands; never auto-retry, never auto-kill (except hard timeout); statistical interpretation is descriptive, not editorial; ethics checklist items are hard gates for human studies.
 
 ## Key Rules
 

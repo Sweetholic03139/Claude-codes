@@ -11,6 +11,7 @@
 | `.claude/skills/academic-paper/` | 12-에이전트 논문 작성 (초안, 개요, 수정, 초록, 인용 검증 등) |
 | `.claude/skills/academic-paper-reviewer/` | 다관점 동료 심사 (7-에이전트 리뷰 팀) |
 | `.claude/skills/academic-pipeline/` | 전체 파이프라인 오케스트레이터 (연구 → 작성 → 심사 → 수정 → 마무리) |
+| `.claude/skills/experiment-agent/` | 실험 실행·모니터링 ([experiment-agent](https://github.com/Imbad0202/experiment-agent) v1.0 — run/manage/validate/plan 모드, ARS Stage 1↔2 연계) |
 | `.claude/commands/` | `/ars-plan`, `/ars-lit-review`, `/ars-full` 등 슬래시 커맨드 |
 | `.claude/agents/` | 공용 에이전트 정의 |
 | `.claude/CLAUDE.md` | 스킬 라우팅 규칙 |
